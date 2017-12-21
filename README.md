@@ -16,4 +16,4 @@ Link to game: https://amir-hafizovic.github.io/tictactoe/
   * Add leaderboard
   * Scalable gameboards
   * Add AI player
-  * Add styled dialogue modal instead of prompt
+  * Add styled modal dialog instead of prompt
