@@ -31,8 +31,8 @@ const createGrid = function(rows, columns) {
 }
 
 const getPlayerName = function() {
-  const name1 = prompt(`Player X's name?`);
-  const name2 = prompt(`Player O's name?`);
+  const name1 = prompt(`Player X's name?`) || 'Player X';
+  const name2 = prompt(`Player O's name?`) || 'Player O';
   return [name1, name2];
 }
 
@@ -43,14 +43,6 @@ const getPlayers = function() {
 
   return [playerX, playerO];
 };
-
-const findPlayerByMarker = function(players, marker) {
-  for(let i = 0; i < players.length; i++) {
-    if (players[i].marker === marker) {
-      return players[i];
-    }
-  }
-}
 
 //MATCHING LOGIC
 const match = function(grid, marker){
@@ -118,8 +110,11 @@ const startGame = function() {
     const winner = match(grid, marker);
 
     if (winner) {
-      const winningPlayer = findPlayerByMarker(players, winner);
+      let winningPlayer;
+      if (winner === 'X') winningPlayer = playerX;
+      else winningPlayer = playerO;
       alert(`${winningPlayer.name} has won!`);
+      winningPlayer.score ++;
       $('tr').remove();
       grid = initGrid();
       createGrid(rows, columns);
