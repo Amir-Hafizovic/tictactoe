@@ -5,7 +5,7 @@ Link to game: https://amir-hafizovic.github.io/tictactoe/
 
 ### FEATURES:
   * Accepts 2 player names
-  * Counts & displays player's wins
+  * Counts & displays player's wins ands draws
   * Automatically alternates starting player per game
   * Regenerates gameboard after each win or draw
   * Alerts players on wins and draws
@@ -16,3 +16,4 @@ Link to game: https://amir-hafizovic.github.io/tictactoe/
   * Add leaderboard
   * Scalable gameboards
   * Add AI player
+  * Add styled dialogue modal instead of prompt
