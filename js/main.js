@@ -29,20 +29,12 @@ const createGrid = function(rows, columns) {
     }
   }
 }
-
+//returns player names via prompt in into an array. Has default optons if no name is chosen.
 const getPlayerName = function() {
   const name1 = prompt(`Player X's name?`) || 'Player X';
   const name2 = prompt(`Player O's name?`) || 'Player O';
   return [name1, name2];
 }
-
-const getPlayers = function() {
-  const names = getPlayerName();
-  const playerX = { name: names[0], marker: 'X', score: 0 };
-  const playerO = { name: names[1], marker: 'O', score: 0 };
-
-  return [playerX, playerO];
-};
 
 //MATCHING LOGIC
 const match = function(grid, marker){
@@ -80,11 +72,11 @@ const isFinished = function(grid) {
 
 // initialises game plus dependencies
 const startGame = function() {
-  let grid = initGrid();
-  createGrid(rows, columns);
-  const players = getPlayers();
-  const playerX = players[0];
-  const playerO = players[1];
+  let grid = initGrid();//initialises grid array
+  createGrid(rows, columns);//build html table
+    const names = getPlayerName();
+    const playerX = { name: names[0], marker: 'X', score: 0 };
+    const playerO = { name: names[1], marker: 'O', score: 0 };
 
   // Thanks milo for odd/even concept
   let count = 0;
