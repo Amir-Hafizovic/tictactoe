@@ -16,4 +16,3 @@ Link to game: https://amir-hafizovic.github.io/tictactoe/
   * Add leaderboard
   * Scalable gameboards
   * Add AI player
-  * More animation and styling
