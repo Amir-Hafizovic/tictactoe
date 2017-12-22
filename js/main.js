@@ -37,14 +37,14 @@ const getPlayerName = function() {
 
 //MATCHING LOGIC
 const match = function(grid, marker){
-  // Rows check
+  // Loop through rows check
   for (let i = 0; i < rows; i++) {
     if (grid[i][0] === marker && grid[i][1] === marker && grid[i][2] === marker) {
       console.log('matched');
       return marker;
     }
   }
-  // Columns check
+  // Loop through columns check
   for (let j = 0; j < columns; j++) {
     if (grid[0][j] === marker && grid[1][j] === marker && grid[2][j] === marker) {
       console.log('matched');
@@ -61,7 +61,7 @@ const match = function(grid, marker){
     return marker;
   }
 };
-// checks to see if grid array contains 0's to determine if it's a draw.
+// loops through grid array checking to see if it contains 0's to determine if it's a draw.
 const isFinished = function(grid) {
   for (let i = 0; i < grid.length; i++) {
     if (grid[i].indexOf(0) !== -1) return false;
@@ -78,36 +78,40 @@ const startGame = function() {
   const playerX = { name: names[0], marker: 'X', score: 0 };
   const playerO = { name: names[1], marker: 'O', score: 0 };
 
-  let count = 0;
-  let draws = 0;
-  let marker;
+  let count = 0;//count for alternating player marker placement
+  let draws = 0;//draws counter
+  let marker;//player's marker variable
 
   const dataHandler = function() {
-
+    //'this' is clicked td element from event handler
     const $row = $(this).attr('data-row');//creates variable from html data attributes
     const $col = $(this).attr('data-column');
+    //jQuery conditional which only allows input into empty (td) html element
     if ($(this).is(':empty')) {
 
       // Thanks milo for odd/even concept
+      //if/else alternates players depending on count
       if (count % 2 === 0) {
         marker = playerX.marker;
       }
       else marker = playerO.marker;
-
-      const $Click = $(this).html(`<p class="input">${marker}</p>`);
+      //pushes players marker into click events selected element
+      $(this).html(`<p class="input">${marker}</p>`);
+      //pushes marker into corresponding position in the grid array
       grid[$row][$col] = marker;
       console.log(`html-data:${$row},${$col} Marker: ${marker}`)
-      count++;
+      count++;//count for alternating player marker placement (turns)
     };
-    // Winner or draw notification logic
+    // WINNER LOGIC
+    //assigns matching marker into winner variable
     const winner = match(grid, marker);
-
-    if (winner) {
-      let winningPlayer;
-      if (winner === 'X') winningPlayer = playerX;
-      else winningPlayer = playerO;
-      alert(`${winningPlayer.name} has won!`);
-      winningPlayer.score ++;
+    //conditional for a positive match
+    if (winner) {//if matched marker
+      let winningPlayer;//create variable to store winning player object reference
+      if (winner === 'X') winningPlayer = playerX;//reference playerX object
+      else winningPlayer = playerO;//else reference playerO object
+      alert(`${winningPlayer.name} has won!`);//display player name from player object
+      winningPlayer.score ++;//add +1 to score in player object
       $('tr').remove(); // clears gameboard html markup
       grid = initGrid();// regenerates game array
       createGrid(rows, columns);//re-creates html gameboard
@@ -121,10 +125,10 @@ const startGame = function() {
       $('tr').remove(); // clears gameboard html markup
       grid = initGrid(); // regenerates game array
       createGrid(rows, columns); //re-creates html gameboard
-      $('.draws').html(`<p>Draws: ${draws}</p>`);
+      $('.draws').html(`<p>Draws: ${draws}</p>`);//displays draw counts on frontend
     }
   };
-  $('.table').on('click', 'td', dataHandler);
+  $('.table').on('click', 'td', dataHandler);//click event handler
 };
 
-$( document ).ready(startGame);
+$( document ).ready(startGame);//when dom has been loaded, call startgame function
